@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: sat_data
+    database: northstar
+    schema: dbo
+    tables:
+      - name: 1617_SAT Data
+      - name: 1718_SAT Data
+      - name: 1819_SAT Data
+      - name: 1920_SAT Data
