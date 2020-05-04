@@ -1,5 +1,23 @@
-SELECT *, CASE
-    WHEN {{ ref('q3_grades_by_course')}}.[AVG_PERCENT] >= 70 THEN 1
-    ELSE 0
-    END AS credits_earned
-FROM q3_grades_by_course
+with
+
+grades as (
+    select * from {{ ref('q3_grades_by_course')}}
+),
+
+final as (
+    select 
+        student_id,
+        course_id,
+        credit_type,
+        pct,
+
+        case 
+            when pct >= 70 then 1  -- count 1 credit if grade greater than or equal to 70
+            else 0  -- otherwise zero credits
+        end as credits_earned
+    
+    from grades
+
+)
+
+select * from final

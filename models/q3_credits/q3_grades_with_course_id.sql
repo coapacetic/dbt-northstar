@@ -1,5 +1,28 @@
-SELECT {{ source('c2020_grades_by_quarter','c2020_apr24_grade_by_quarter')}}.*, {{ ref('sections')}}.Credit_Type
-FROM {{ source('c2020_grades_by_quarter','c2020_apr24_grade_by_quarter')}}
-LEFT JOIN {{ ref('sections')}}
-ON {{ source('c2020_grades_by_quarter','c2020_apr24_grade_by_quarter')}}.[SECTIONID] = {{ ref('sections')}}.sect_id
-{{ ignore_courses() }}
+with 
+
+grades as (
+    select * from {{ ref('stg_q3_grades') }}
+),
+
+sections as (
+    select * from {{ ref('stg_sections')}}
+),
+
+final as (
+    select
+        grades.student_id,
+        grades.section_id,
+        grades.quarter,
+        grades.pct,
+        sections.course_id,
+        sections.credit_type
+
+    from grades
+
+    left join sections
+    on grades.section_id = sections.section_id
+
+    {{ ignore_courses('sections') }} -- ignore specific courses
+)
+
+select * from final
