@@ -1,8 +1,33 @@
-SELECT {{ ref('grades')}}.*, {{ ref('courses')}}.* , CASE
-    WHEN {{ ref('grades')}}.[Percent] >= 70 THEN 1
-    ELSE 0
-    END AS credits_earned
-FROM {{ ref('grades')}}
-LEFT JOIN {{ ref('courses')}}
-ON {{ ref('grades')}}.[Course_Number] = {{ ref('courses')}}.c_id
-WHERE {{ ref('grades')}}.[TermID] < 2900
+with
+
+grades as (
+    select * from {{ ref('stg_grades')}}
+),
+
+courses as (
+    select * from {{ ref('stg_courses')}}
+),
+
+final as (
+    select
+        grades.student_id,
+        grades.course_id,
+        grades.term_id,
+        grades.pct,
+
+        courses.course_name,
+        courses.credit_type,
+
+        case
+            when grades.pct >= 70 then 1 -- students earn 1 credit if grade > 70
+            else 0 -- otherwise, no credit earned
+        end as credits_earned    
+
+        from grades
+        left join courses
+        on grades.course_id = courses.course_id
+        
+        where grades.term_id < 2900 -- selecting only grades from before current year
+)
+
+select * from final

@@ -1,4 +1,22 @@
-SELECT [STUDENT_NUMBER], [COURSE_NAME], [Credit_Type], avg([PERCENT]) as [AVG_PERCENT]
-FROM {{ ref('q3_grades_with_course_id')}}
-WHERE FINALGRADENAME = 'Q1' OR FINALGRADENAME = 'Q2' OR FINALGRADENAME = 'Q3'
-GROUP BY [STUDENT_NUMBER], [COURSE_NAME], [Credit_Type]
+with 
+
+grades as (
+    select * from {{ ref('q3_grades_with_course_id') }}
+),
+
+final as (
+    select
+        student_id,
+        course_id,
+        credit_type,
+        avg(pct) as pct -- average the first three quarters together
+
+    from grades
+
+    where quarter = 'Q1' or quarter = 'Q2' or quarter = 'Q3'  -- only select the first three quarters
+
+    group by student_id, course_id, credit_type
+    
+)
+
+select * from final
