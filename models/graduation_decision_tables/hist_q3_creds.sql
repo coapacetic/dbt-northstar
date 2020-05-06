@@ -10,7 +10,7 @@ q3_creds as (
 
 all_credits as (
     select * from hist_creds
-    union
+    union all
     select * from q3_creds
 ),
 
