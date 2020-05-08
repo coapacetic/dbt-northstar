@@ -1,10 +1,10 @@
 WITH positive_values (Staff, Pos_Net) AS (SELECT Staff, SUM(CONVERT(Int,Merit_Value))
-FROM {{ source('kickboard_data','1819_KB Data')}}
+FROM {{ source('kickboard','1819_KB Data')}}
 WHERE Behavior_Category = 'Positive Behaviors'	AND Staff LIKE 'Student%'
 GROUP BY Staff),
 
 negative_values (Staff, Neg_Net) AS (SELECT Staff, SUM(CONVERT(Int,Merit_Value))
-FROM {{ source('kickboard_data','1819_KB Data')}}
+FROM {{ source('kickboard','1819_KB Data')}}
 WHERE Behavior_Category = 'Negative Behaviors'	AND Staff LIKE 'Student%'
 GROUP BY Staff)
 

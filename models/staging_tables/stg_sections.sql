@@ -7,4 +7,4 @@ select distinct
         else [Credit_Type]
     end as credit_type
     
-from {{ source('eoygrades_data','C2020_Y1_Historical') }} 
+from {{ source('powerschool','C2020_Y1_Historical') }}

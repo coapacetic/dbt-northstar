@@ -6,7 +6,7 @@ with grades as (
         [TermID] as term_id,
         [Percent] as pct
         
-    from {{ source('eoygrades_data','C2020_Y1_Historical')}}
+    from {{ source('powerschool','C2020_Y1_Historical') }}
 )
 
 select distinct *

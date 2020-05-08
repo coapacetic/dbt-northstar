@@ -1,8 +1,0 @@
-version: 2
-
-sources:
-  - name: c2020_grades_by_quarter
-    database: northstar
-    schema: dbo
-    tables:
-      - name: c2020_apr24_grade_by_quarter

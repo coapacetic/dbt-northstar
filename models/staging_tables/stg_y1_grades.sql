@@ -4,4 +4,4 @@ select
     [FINALGRADENAME] as quarter,
     [PERCENT] as pct
 
-from {{ source('powerschool','c2020_apr24_grade_by_quarter') }}
+from {{ source('powerschool','1920_y1_grades') }}

@@ -1,7 +1,7 @@
 with
 
 grades as (
-    select * from {{ ref('stg_grades')}}
+    select * from {{ ref('stg_hist_grades')}}
 ),
 
 courses as (

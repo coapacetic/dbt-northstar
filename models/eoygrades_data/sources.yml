@@ -1,8 +1,0 @@
-version: 2
-
-sources:
-  - name: eoygrades_data
-    database: northstar
-    schema: dbo
-    tables:
-      - name: C2020_Y1_Historical
