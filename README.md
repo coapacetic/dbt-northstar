@@ -1,3 +1,5 @@
+Note: Migrated project to https://github.com/coapecetic/dbt-cloud-northstar for implementing with cloud environment on Snowflake.  Keep this project for working with MS SQL Server.
+
 Welcome to your new dbt project!
 
 ### Using the starter project
